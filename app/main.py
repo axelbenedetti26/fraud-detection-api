@@ -18,6 +18,7 @@ from pathlib import Path
 import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas import (
     HealthResponse,
@@ -38,6 +39,16 @@ app = FastAPI(
         "benchmarks the model against a legacy static threshold rule."
     ),
     version="1.0.0",
+)
+
+# Allow the portfolio frontend (hosted on a different domain) to call this API
+# directly from the browser. Wide open on purpose -- this is a public read-only
+# demo API with no auth and no user data, not a system that needs origin locking.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
 )
 
 _model = None
