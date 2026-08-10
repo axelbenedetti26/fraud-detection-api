@@ -44,10 +44,16 @@ class TransactionResponse(BaseModel):
     flags_agree: bool = Field(..., description="True if model_flag and static_rule_flag agree")
     decision_threshold: float = Field(..., description="Probability threshold used for model_flag")
 
+    # Several field names below start with "model_", which Pydantic v2 reserves
+    # for its own internals by default. This just silences the harmless warning.
+    model_config = {"protected_namespaces": ()}
+
 
 class HealthResponse(BaseModel):
     status: str
     model_loaded: bool
+
+    model_config = {"protected_namespaces": ()}
 
 
 class ModelInfoResponse(BaseModel):
@@ -63,3 +69,5 @@ class ModelInfoResponse(BaseModel):
     model_metrics: dict
     model_vs_rule_agreement_rate: float
     feature_importances: dict
+
+    model_config = {"protected_namespaces": ()}
