@@ -1,0 +1,62 @@
+{
+  "model_type": "RandomForestClassifier",
+  "sklearn_pipeline": true,
+  "trained_at": "2026-08-10T10:11:35.472197+00:00",
+  "train_seconds": 11.35,
+  "n_train": 45000,
+  "n_test": 15000,
+  "fraud_rate_train": 0.012,
+  "fraud_rate_test": 0.012,
+  "features": [
+    "amount",
+    "oldbalanceOrg",
+    "newbalanceOrig",
+    "oldbalanceDest",
+    "newbalanceDest",
+    "dest_txn_history",
+    "hour_of_day",
+    "balance_drained_ratio",
+    "is_night",
+    "type"
+  ],
+  "decision_threshold": 0.5,
+  "static_rule": {
+    "description": "Flag TRANSFER/CASH_OUT transactions with amount > $200,000",
+    "evaluated_on": "full_dataset",
+    "threshold_usd": 200000,
+    "recall": 0.0056,
+    "precision": 0.0126,
+    "true_positives": 4,
+    "false_positives": 314,
+    "false_negatives": 716,
+    "true_negatives": 58966
+  },
+  "model_metrics": {
+    "auc": 0.9996,
+    "average_precision": 0.9716,
+    "recall": 0.8,
+    "precision": 0.96,
+    "accuracy": 0.9972,
+    "true_positives": 144,
+    "false_positives": 6,
+    "false_negatives": 36,
+    "true_negatives": 14814
+  },
+  "model_vs_rule_agreement_rate": 0.984,
+  "feature_importances": {
+    "oldbalanceDest": 0.3437,
+    "balance_drained_ratio": 0.1862,
+    "amount": 0.0969,
+    "dest_txn_history": 0.0809,
+    "oldbalanceOrg": 0.0797,
+    "newbalanceOrig": 0.0676,
+    "type_TRANSFER": 0.0456,
+    "newbalanceDest": 0.0397,
+    "hour_of_day": 0.0182,
+    "type_PAYMENT": 0.0158,
+    "type_CASH_OUT": 0.0124,
+    "type_CASH_IN": 0.0074,
+    "is_night": 0.0058,
+    "type_DEBIT": 0.0001
+  }
+}
