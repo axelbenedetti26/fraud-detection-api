@@ -69,5 +69,7 @@ class ModelInfoResponse(BaseModel):
     model_metrics: dict
     model_vs_rule_agreement_rate: float
     feature_importances: dict
+    threshold_curve: list[dict]
+    dollar_impact: dict
 
     model_config = {"protected_namespaces": ()}
