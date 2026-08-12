@@ -1,8 +1,8 @@
 {
   "model_type": "RandomForestClassifier",
   "sklearn_pipeline": true,
-  "trained_at": "2026-08-10T10:11:35.472197+00:00",
-  "train_seconds": 11.35,
+  "trained_at": "2026-08-12T13:49:04.315587+00:00",
+  "train_seconds": 13.11,
   "n_train": 45000,
   "n_test": 15000,
   "fraud_rate_train": 0.012,
@@ -58,5 +58,109 @@
     "type_CASH_IN": 0.0074,
     "is_night": 0.0058,
     "type_DEBIT": 0.0001
+  },
+  "threshold_curve": [
+    {
+      "threshold": 0.05,
+      "recall": 0.9944,
+      "precision": 0.4625
+    },
+    {
+      "threshold": 0.1,
+      "recall": 0.9944,
+      "precision": 0.6393
+    },
+    {
+      "threshold": 0.15,
+      "recall": 0.9889,
+      "precision": 0.7479
+    },
+    {
+      "threshold": 0.2,
+      "recall": 0.9722,
+      "precision": 0.7743
+    },
+    {
+      "threshold": 0.25,
+      "recall": 0.9444,
+      "precision": 0.8333
+    },
+    {
+      "threshold": 0.3,
+      "recall": 0.9278,
+      "precision": 0.8653
+    },
+    {
+      "threshold": 0.35,
+      "recall": 0.8833,
+      "precision": 0.9298
+    },
+    {
+      "threshold": 0.4,
+      "recall": 0.8722,
+      "precision": 0.9515
+    },
+    {
+      "threshold": 0.45,
+      "recall": 0.8167,
+      "precision": 0.9608
+    },
+    {
+      "threshold": 0.5,
+      "recall": 0.8,
+      "precision": 0.96
+    },
+    {
+      "threshold": 0.55,
+      "recall": 0.7556,
+      "precision": 0.9645
+    },
+    {
+      "threshold": 0.6,
+      "recall": 0.7278,
+      "precision": 0.985
+    },
+    {
+      "threshold": 0.65,
+      "recall": 0.6389,
+      "precision": 0.9914
+    },
+    {
+      "threshold": 0.7,
+      "recall": 0.6111,
+      "precision": 0.991
+    },
+    {
+      "threshold": 0.75,
+      "recall": 0.5722,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.8,
+      "recall": 0.5056,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.85,
+      "recall": 0.4222,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.9,
+      "recall": 0.3333,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.95,
+      "recall": 0.2056,
+      "precision": 1.0
+    }
+  ],
+  "dollar_impact": {
+    "test_set_fraud_total_usd": 4499243.8,
+    "model_caught_usd": 3416567.81,
+    "model_missed_usd": 1082675.99,
+    "rule_caught_usd": 0.0,
+    "rule_missed_usd": 4499243.8
   }
 }
