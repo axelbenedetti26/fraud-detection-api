@@ -130,6 +130,34 @@ def main():
     rule_pred_test = static_rule_flag(df_test)
     agreement_rate = float((y_pred == rule_pred_test).mean())
 
+    # Threshold trade-off curve: recall/precision at a range of decision thresholds,
+    # so the frontend can show that 0.5 is a choice, not a magic number.
+    threshold_curve = []
+    for t in np.arange(0.05, 1.0, 0.05):
+        pred_t = (y_proba >= t).astype(int)
+        threshold_curve.append(
+            {
+                "threshold": round(float(t), 2),
+                "recall": round(float(recall_score(y_test, pred_t, zero_division=0)), 4),
+                "precision": round(float(precision_score(y_test, pred_t, zero_division=0)), 4),
+            }
+        )
+
+    # Dollar impact: real fraud-dollar totals from the test set (not a hypothetical
+    # scenario) -- how much fraud value each approach actually catches vs. misses.
+    fraud_mask = (y_test == 1)
+    test_amounts = df_test["amount"].values
+    total_fraud_usd = float(test_amounts[fraud_mask].sum())
+    model_caught_usd = float(test_amounts[fraud_mask & (y_pred == 1)].sum())
+    rule_caught_usd = float(test_amounts[fraud_mask & (rule_pred_test == 1)].sum())
+    dollar_impact = {
+        "test_set_fraud_total_usd": round(total_fraud_usd, 2),
+        "model_caught_usd": round(model_caught_usd, 2),
+        "model_missed_usd": round(total_fraud_usd - model_caught_usd, 2),
+        "rule_caught_usd": round(rule_caught_usd, 2),
+        "rule_missed_usd": round(total_fraud_usd - rule_caught_usd, 2),
+    }
+
     print("=== Random Forest (model) ===")
     print(f"  AUC:        {model_auc:.4f}")
     print(f"  Recall:     {model_recall:.4f}")
@@ -195,6 +223,8 @@ def main():
         },
         "model_vs_rule_agreement_rate": round(agreement_rate, 4),
         "feature_importances": {k: round(float(v), 4) for k, v in feature_importances.items()},
+        "threshold_curve": threshold_curve,
+        "dollar_impact": dollar_impact,
     }
 
     joblib.dump(pipeline, MODEL_PATH)
